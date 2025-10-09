@@ -1,98 +1,24 @@
-<html>
-    <head>
-        <title>Meu primeiro HTML</title>
-        <style>
-            img{width: 250px;border-radius: 50%;}
-            p{color: blueviolet;}
-            h1{color: purple;}
-            ul{background-color: lightgoldenrodyellow; padding: 20px;}
-            table, td{border: 1px solid black; border-collapse: collapse;}
-        </style>
-    </head>
-    <body>
-        <!--Comentário-->
-        <h1>Comandos Git</h1>
-        <ul>
-            <li>git init - cria um repositório em um diretório</li>
-            <li>git add - adiciona modificações d workcopy/ worktree ai stage</li>
-            <li>git commit -m "asd" - cria um commit apartir do stage</li>
-            <li>git log - exibe os commits do nosso repositório local</li>
-            <li>git log --oneline --all --graph</li>
-            <li>git status - exibe o estado do <strong>WK</strong></li>
-            <li>git checkout -b nova-branch - cria uma nova branch apontando para a branch ou hash informado</li>
-            <li>git reset --hard - restaura os arquivos trakeados ao estado no HEAD </li>
-            <li>git push remote branch</li>
-            <li>git config user.name = "nome"</li>
-            <li>git config user.email = "email"</li>
-        </ul>
-        <hr>
-         <h1> Título de nível 1</h1>
-        <h2> Título de nível 2</h2>
-        <h3> Título de nível 3</h3>
-        <h4> Título de nível 4</h4>
-        <h5> Título de nível 5</h5>
-        <h6> Título de nível 6</h6>
-        <p> Programação de Internet</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programação para Internet</title>
+</head>
+<body>
+    
+    <h1>Aula de Programação para Internet</h1>
 
-        <p>Lorem <em>ipsum</em> dolor <strong>sit amet</strong> consectetur adipisicing elit. Sapiente veritatis recusandae adipisci tempora! Doloremque mollitia impedit dicta maxime. Mollitia corporis excepturi quas laborum, voluptas illum dolorum aliquam hic unde porro?</p>
-        <span> Somente Texto</span><span> outro texto na mesma linha</span>
+    <dl>
+        <dt>Aula 1</dt>
+        <dd>História da Web...</dd>
+        <dt><a href="./1.html">Aula 2</dt></a>
+        <dd>Git..</dd>
+        <dt><a href="./2.html">Aula 3</dt></a>
+        <dd>HTML básico, listas e tabelas.</dd>
+        <dt><a href="./3.html">Aula 4</dt></a>
+        <dd>Forulário e tabelas + introdução CSS.</dd>
+    </dl>
 
-        <h1>Listas</h1>
-        <p>O HTML possui listas não ordenadas e listas ordenadas, as listas ordenadas não ordenadas são definidas com a tag &lt;ul&gt; enquanto usamos &lt;ol&gt; para listas ordenadas. </p>
-
-        <ul>
-            <li>Panqueca</li>
-            <li>Pera</li>
-            <li>Uva</li>
-            <li>Maçã</li>
-        </ul>
-        <ol start  = "1" type = "I">
-            <li>Panqueca</li>
-            <li>Pera</li>
-            <li>Uva</li>
-            <li>Maçã</li>
-        </ol>
-        <dl>
-            <dt>Café</dt>
-            <dd>Bebida fundamental para a vida!</dd>
-            <dt>Água</dt>
-            <dd>Segunda bebida fundamental para a vida!</dd>
-        </dl>
-
-        <h1>Tags de Formatação de Texto</h1>
-        <p>Lorem ipsum, <strong>dolor</strong>, <sub>sit</sub> <sup>amet</sup> consectetur adipisicing elit. <br>Officiis <mark>dolor </mark>ratione aliquam fuga alias laudantium accusantium adipisci harum voluptatibus. <br>Impedit numquam minima dignissimos eaque enim aspernatur, illum exercitationem quaerat in!</p>
-
-        <h2>Tags para Criar Links e Imagens</h2>
-        <a href="http://www.google.com"> Google </a><br>
-        <a target="_self" href ="http://www.google.com"> Google </a><br>
-        <a target="_blank" href ="http://www.google.com"> Google </a><br>
-        <a target="_blank" href ="http://www.google.com">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe id sed nihil explicabo odit quod ea, corrupti iste animi, in rem labore blanditiis! Repellendus ab magni, quisquam sapiente officia nihil?</p>
-        </a><br>
-        <img src="./backyardgans.jfif" alt="Backyardigans">
-        <img src="https://upload.wikimedia.org/wikipedia/en/1/19/The-Backyardigans-characters.png" alt="Backyardigans Fundo Azul">
-        <img src="https://br.web.img3.acsta.net/pictures/21/12/27/21/27/5131979.jpg" alt="Backyardigans Fundo Amarelo">
-
-        <h1>Tabelas</h1>
-        <table>
-            <tr>
-                <th>Nome</th>
-                <th>Idade</th>
-                <th>Estudantes</th>
-            </tr>
-            <tr>
-                <td>Maria</td>
-                <td>30</td>
-                <td>Desenvolvedora</td>
-            </tr>
-        </table>
-        <br>
-        <h1>Formulários</h1>
-        <form target="_blank" action="https://google.com/search">
-            <label for="q">Query de Busca</label>
-            <input id="q" name="q" type="text">
-            <input type="submit" value="Buscar">
-        </form>
-
-    </body>
-</html>
+</body>
+</html> 
