@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /*Seletor Universal - Seleciona todas as tags existentes (*)*/
+        *{border: 2px solid purple;}
+        li, .piquenique#item3{color: darkblue;}
+        p{
+            color: rgb(204, 65, 142);
+            padding: 10px;
+        }
+
+        /*Seletor por ID*/
+        #p2, #p4{color: orange; padding: 10px;}
+        p#p1{
+            color: cornflowerblue;
+            padding: 20px;
+            border-top-color: peru;
+            border-top-style: solid;
+            border-top-width: 10px;
+            border-top: 5px double palevioletred;
+            border: 5px solid papayawhip;
+            outline: 2px dotted palegreen;
+            outline-offset: 10px;
+        }
+
+        /*Seletor por Classe*/
+        .piquenique{ 
+            background-color: lightpink; 
+            color: aquamarine;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <p id = "p1">Amábili</p>
+    <p id = "p2">Islen</p>
+    <p id = P3>Ana</p>
+    <p id="p4">Domenica</p>
+
+    <!-- ul>li{item-$}*5 ==> Cria uma lista de forma mais rápida-->
+    <ul>
+        <li id = "item1" class="piquenique"> Café</li>
+        <li id = "item2" class="piquenique"> Sanduiche Natural</li>
+        <li id = "item3" class="piquenique"> Bolo</li>
+        <li id = "item4" class="piquenique"> Docinho</li>
+        <li id = "item5" class="piquenique"> Uva</li>
+    </ul>
+</body>
+</html>
