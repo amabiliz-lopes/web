@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{border: 1px solid brown;}
+        img{
+            float: right;
+        }
+        html, body{border-color: blueviolet;}
+        .box{
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            position: static;
+        }
+        #box2{
+            position:relative;
+            top: 30px;
+            left: 30;
+        }
+        #box3{
+            position: absolute;
+            top: 50px;
+        }
+        .container{
+            position: relative;
+        }
+        #box4{
+            /*Resposta para a lista de exercício*/
+            position: fixed;
+            background-color: aquamarine;
+            right: 10px;
+            bottom: 10px;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Título</h1>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit alias numquam odio porro libero saepe officiis quos incidunt voluptate excepturi pariatur architecto praesentium, delectus voluptatibus iste eius nam recusandae reiciendis.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, voluptatum atque! Vel labore exercitationem error minima nam, repellendus veritatis velit repudiandae sequi. Accusamus ab, quaerat quisquam neque et aperiam in.</p>
+    <span>lorem</span>
+    <img src="./The-Backyardigans-characters.png" alt="">
+    <span>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum optio commodi, veritatis corrupti porro officiis delectus nemo doloribus eum exercitationem illum consectetur assumenda non quas voluptatem animi tenetur ab totam!</span>
+
+    <div class="container">
+        <!--  div#box$.box{box$}*5 ==> Cria divs de forma rápida com auto incremento, com um texto de auto incremento escrito dentro de cada uma das divs-->
+        <div id="box1" class="box">box1</div>
+        <div id="box2" class="box">box2</div>
+        <div id="box3" class="box">box3</div>
+        <div id="box4" class="box">box4</div>
+        <div id="box5" class="box">box5</div>
+    </div>
+</body>
+</html>
