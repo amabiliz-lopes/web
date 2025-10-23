@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            display: flex;
+
+            flex-direction: row; /*Define o heixo que será trabalhado*/
+
+            justify-content: space-evenly; /*Justifica em relação ao flex-direction*/
+
+            align-content: center; /*Justifica em relação ao flex-direction*/
+
+            align-items: center; /*Justifica no heixo perpendicular/contrário ao flex-direction*/
+
+            flex-wrap: wrap; /*Quebra a linha dos itens do elemento ao dar zoom | nowrap - é padrão e não quebra a linha | wrap-reverse - quebra a linha ao contrário (coloca o último item no topo)*/
+
+            border: 1px solid plum;
+
+            height: 100vw; /*n° + vw - Permite o objeto ter a largura da tela (View width) | n° + vl - Permite o objeto ter a altura da tela (View height)*/
+
+            /*justify-content: center - Alinha ao centro | space-evenly - deixa os elementos espaçados igualmente | space-aroud - deixa espaçado ao redor do elemento | space-between - deixa o espaço entre os elementos (junto a borda)*/
+        }
+
+        #box2{
+            flex-shrink: 2; /*Diz o quanto de espaço o elemento vai ceder para os demais elementos ao dar zoom. 0 = não cede | 1 = padrão | acima de 1 = diz o quão rápido vai ceder*/
+
+            /*flex-grow: 1;*/ /*Diz o quanto o elemento vai usar do espaço que sobrar entre os elementos | 1 = 100% do espaço que sobrou*/
+        }
+
+        #box3,#box4{
+            flex-shrink: 2;
+            /*flex-grow: 3;*/
+
+            /*Os n° que você definir nos flex-shrink/flex-grow somando eles, seria a proporção que cada um vai tomar no espaço*/
+        }
+
+        .box{flex-shrink: 0;}
+
+        .box{
+            background-color: palevioletred;
+            border: 2px solid aquamarine;
+            display: block;
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="box1" class="box">1</div>
+        <div id="box2" class="box">2</div>
+        <div id="box3" class="box">3 amabili</div>
+        <div id="box4" class="box">4</div>
+        <div id="box5" class="box">5</div>
+        <div id="box5" class="box">6</div>
+        <div id="box5" class="box">7</div>
+        <div id="box5" class="box">8</div>
+        <div id="box5" class="box">9</div>
+    </div>
+</body>
+</html>

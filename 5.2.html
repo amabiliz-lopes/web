@@ -34,6 +34,15 @@
             right: 10px;
             bottom: 10px;
         }
+        #box5{
+            /*Colocando um elemento no centro da dela com o translate*/
+            position: fixed;
+            background-color: rgb(170, 122, 233);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: +1;      /*Define a camada do elemento*/
+        }
     </style>
     <title>Document</title>
 </head>
@@ -51,7 +60,7 @@
         <div id="box2" class="box">box2</div>
         <div id="box3" class="box">box3</div>
         <div id="box4" class="box">box4</div>
-        <div id="box5" class="box">box5</div>
+        <div id="box5" class="box">box5</div> 
     </div>
 </body>
 </html>
