@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRID LAYOUT</title>
+    <style>
+        .container{
+            display: grid;
+            height: 50vh;
+            width: 100vw;
+            /*FORMA DE DEFINIR GRID COM COLUNAS E LINHAS
+            grid-template-columns: 1fr 4fr 1fr; -> Dfine as colunas do grid | fr é a fração do site que o elemento ocupa
+            grid-template-rows: 100px 80vh 20vh; -> Define as linhas do grid*/
+
+            /*FORMA DE DEFINIR GRID COM MATRIZ
+            grid-template-areas: 
+            "item1 item1 item1"
+            "item2 item2 item5"
+            "item3 item4 item6"
+            "item3 item4 item6"
+            ;*/
+
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: auto auto;
+        }
+
+        .item6{
+            /*FORMA EXTENSA
+            grid-row-start: 2;
+            grid-row-end: 3;
+            grid-column-start: 2;
+            grid-column-end: 4;
+            */
+            
+            /*FORMA SIMPLIFICADA
+            grid-row: 2 / span 2;
+            grid-column: 1 / span 3;
+            */
+
+            /*FORMA MAIS RÁPIDA AINDA*/
+            grid-area: 1 / 3 / 3 / 3;
+
+        }
+
+        /*FORMA DE DEFINIR GRID COM MATRIZ (DEFININDO A MATRIZ)
+        #item1{grid-area: item1;}
+        #item2{grid-area: item2;}
+        #item3{grid-area: item3;}
+        #item4{grid-area: item4;}
+        #item5{grid-area: item5;}
+        #item6{grid-area: item6;}
+        */
+
+        .item{
+            background-color: rgb(4, 165, 240);
+            color: white;
+            border: 2px solid rgb(250, 38, 232);
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>GRID faz parte do CSS versão 2.0</h1>
+    <h2>O grid é uma propriedade display que permite criar layouts complexos de forma simples e eficiente.</h2>
+
+    <div class="container">
+        <div id="item1" class="item">1</div>
+        <div id="item2" class="item">2</div>
+        <div id="item3" class="item">3</div>
+        <div id="item4" class="item">4</div>
+        <div id="item5" class="item">5</div>
+        <div id="item6" class="item">6</div>
+    </div>
+</body>
+</html>
