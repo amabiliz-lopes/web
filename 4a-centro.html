@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .box{
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            position: static;
+        }
+        .container{
+            position: relative;
+        }
+        #box1{
+            position: fixed;
+            background-color: rgb(170, 122, 233);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: +1;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div id="box1" class="box"></div> 
+    </div>
+</body>
+</html>
