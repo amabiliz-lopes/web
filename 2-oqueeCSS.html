@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 2 - O que é CSS</title>
+    <style>
+        body{
+            background-color: #cfffe5;
+        }
+        ul{/* -> Seletor*/
+            background-color: #e17beb; /* -> Declaração*/
+            border: groove #a02cff;
+            /* ^ propriedade*//* ^ Valor*/
+            color: #00028d;
+        }
+        .circulo{
+            border-radius: 50%;
+            border: 20px groove aqua;
+            background-color: deeppink;
+            width: 100px;
+            height: 100px;
+            font-size: 20px;
+            flex-shrink: 0;
+
+            animation: rotacao 2s cubic-bezier(.01,1.07,.74,.2) infinite;
+        }
+        @keyframes rotacao{
+            from{
+                transform: translate(0,0) rotate(0deg);
+            }
+            to{
+                transform: translate(100%, 100%) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>O que uma regra CSS?</h1>
+    <p>CSS é um um arquivo chamado folha de estilo, sendo onde definimos o estilo dos elementos HTML. o CSS é definido regras, as quais são definidas da seguinte forma:</p>
+    <ul>
+        <li>Seletor: indica a tag/elemento em que a seguinte regra será utilizada.</li>
+        <li>Declaração: é onde você define a regra/aplica a aparência. Sendo dividida em propriedade e valor. </li>
+    </ul>
+    <h2>Exemplos</h2>
+    <pre>
+        ul{/* -> Seletor*/
+            background-color: #e17beb; /* -> Declaração*/
+            border: groove #a02cff;
+            /* ^ propriedade*//* ^ Valor*/
+            color: #00028d;
+        }
+    </pre>
+    <div class="circulo">Animação</div>
+</body> 
+</html>
