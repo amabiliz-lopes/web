@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <button id="click">Clique aqui!</button>
+
+    <script>
+        let b=document.querySelector("button")
+        let contador=0;
+
+        b.style.width="50vw"
+        b.style.height="50vh"
+        b.style.backgroundColor="purple"
+        b.addEventListener("click", ()=>{
+            contador++;
+            b.innerHTML=contador /*innerHTML = Entre as tags*/
+        })
+    </script>
+
+</body>
+</html>

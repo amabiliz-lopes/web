@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Aula 1</title>
+</head>
+<body>
+    <h2>Java script</h2>
+    <button onclick="alert('Olá amigos!')">Clique em mim</button> <!-- => Inclusão de JS inline -->
+    <button id="botao1"">Clique em mim</button> <!-- Mediiante tag script -->
+    <button></button> <!-- Mediante código externo -->
+
+    <script> /* Inclusão de JS mediante tag "script" */
+        function clique (){
+            alert("Olá Amigos! Código na tag Script");
+            return "retorno";
+        }
+
+        botao1.addEventListener("click", clique) /* Inclusão de JS mediante id */
+    </script>
+    <script src="1.js"></script> <!-- Inclusão de JS mediante código externo -->
+</body>
+</html>
