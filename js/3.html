@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*let body=document.body;
+        body.innerHTML=`<button>Clique aqui</button>`; => Criando um botão por meio da tag script, sem HTML*/
+
+        let i=0; /*outra forma ideal de criar elemento HTML com JS*/
+        b=document.createElement("button")
+        b.innerHTML="Clique aqui"
+        document.body.appendChild(b)
+
+        p=document.createElement("p");
+        p.id="texto"
+        document.body.appendChild(p)
+
+
+        b.addEventListener("click", ()=>{ /*estrutura de função anonima*/
+            i++;
+            p.innerHTML=i;
+        })
+
+    </script>
+</body>
+</html>
