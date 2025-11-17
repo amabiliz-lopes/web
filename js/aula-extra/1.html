@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #formulario{
+            display: flex;
+            flex-direction: column;
+        }
+        #listagem{
+            border: 4px groove #00369b;
+            background-color: darkgrey;
+        }
+    </style>
+</head>
+<body>
+    <div id="formulario">
+    <label for="id">ID</label>
+    <input type="text" name="id" id="id">
+
+    <label for="nome">Nome</label>
+    <input type="text" name="nome" id="nome">
+
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email">
+
+    <button id="botaoSalvar">Cadastrar</button>
+    </div>
+
+    <div id="listagem"></div>
+
+    <script>
+        ///Tipos de variáveis
+        // let i = 1 | define uma variável i numerica
+        // var a = 1 | define uma variável a numerica
+        // const pi = 3.14516 | define uma variável constante
+
+        //let paragrafo = document.createElement("p");
+        //paragrafo.innerHTML="Olá amigos!";
+        //paragrafo.style.fontSize=24;
+        //paragrafo.id="p01";
+        //paragrafo.style.color="rgb(001,952,650)";
+
+        //document.body.appendChild(paragrafo);
+
+    let inputid=document.querySelector("#id");
+    let inputnome=document.querySelector("#nome");
+    let inputemail=document.querySelector("#email");
+
+    let listagem=document.querySelector("#listagem");
+
+    let button=document.querySelector("#botaoSalvar");
+    var listaNomes=[];
+
+    button.addEventListener("click", ()=>{
+        listaNomes.push({
+                "id":inputid.value,
+                "nome":inputnome.value,
+                "email":inputemail.value
+        })
+
+        console.log(listaNomes);
+        listagemPessoas()
+    })
+
+    function listagemPessoas(){
+        listaNomes.forEach( (e)=>{
+        item= `<div class="itemLista">
+            <input type="text" class="id" value=${e.id}>
+            <input type="text" class="nome" value=${e.nome}>
+            <input type="text" class="email" value=${e.email}>
+        </div>
+        `;
+        listagem.innerHTML+=item;
+        })
+    }
+    
+    listagemPessoas();
+
+    </script>
+</body>
+</html>
