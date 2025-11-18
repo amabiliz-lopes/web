@@ -16,9 +16,11 @@
     </style>
 </head>
 <body>
+    <button id="limpar">Limpar Local Storage</button>
+
     <div id="formulario">
     <label for="id">ID</label>
-    <input type="text" name="id" id="id">
+    <input type="text" name="id" id="id" readonly>
 
     <label for="nome">Nome</label>
     <input type="text" name="nome" id="nome">
@@ -52,20 +54,35 @@
     let listagem=document.querySelector("#listagem");
 
     let button=document.querySelector("#botaoSalvar");
-    var listaNomes=[];
+    let buttonLimpar=document.querySelector("#limpar");
+    buttonLimpar.addEventListener("click", ()=>{
+        localStorage.clear();
+        listagem.innerHTML="";
+    });
+
+    if(localStorage.getItem("listaNomes")){
+        listaNomes= JSON.parse(localStorage.getItem("listaNomes"));
+    } else{
+        listaNomes=[];
+    }
 
     button.addEventListener("click", ()=>{
+        let maxid=listaNomes.length;
         listaNomes.push({
-                "id":inputid.value,
+                "id":maxid+1,
                 "nome":inputnome.value,
                 "email":inputemail.value
         })
 
         console.log(listaNomes);
         listagemPessoas()
+
+        console.log(JSON.stringify(listaNomes));
+        localStorage.setItem("listaNomes", JSON.stringify(listaNomes));
     })
 
     function listagemPessoas(){
+        listagem.innerHTML="";
         listaNomes.forEach( (e)=>{
         item= `<div class="itemLista">
             <input type="text" class="id" value=${e.id}>
