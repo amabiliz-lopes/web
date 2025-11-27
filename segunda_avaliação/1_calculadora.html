@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Simples</title>
+    <style>
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .calculadora{
+            border: 4px groove #0b57fa;
+            height: 550px;
+            width: 400px;
+            display: grid;
+
+            grid-template-areas: 
+            "visor visor visor visor"
+            "soma subtracao multiplicacao divisao"
+            "n7 n8 n9 igual"
+            "n4 n5 n6 igual"
+            "n1 n2 n3 igual"
+            "n0 virgula limpar igual"
+            ;
+        }
+
+        .operadores{
+            border: 1px solid #999999;
+            height: 85px;
+            width: 85px;
+            background-color: #cacaca;
+            font-size: medium;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #494848;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .numeros{
+            border: 1px solid #999999;
+            height: 85px;
+            width: 85px;
+            background-color: #fff5f5;
+            font-size: medium;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #494848;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #soma{grid-area: soma;}
+        #subtracao{grid-area: subtracao;}
+        #multiplicacao{grid-area: multiplicacao;}
+        #divisao{grid-area: divisao;}
+        #virgula{
+            grid-area: virgula;
+            background-color: #fff5f5;
+        }
+        #limpar{
+            grid-area: limpar;
+            background-color: #fff5f5;
+        }
+        #igual{
+            grid-area: igual;
+            background-color: #387eff;
+            color: #ffff;
+            height: 365px;
+        }
+
+        #n1{grid-area: n1;}
+        #n2{grid-area: n2;}
+        #n3{grid-area: n3;}
+        #n4{grid-area: n4;}
+        #n5{grid-area: n5;}
+        #n6{grid-area: n6;}
+        #n7{grid-area: n7;}
+        #n8{grid-area: n8;}
+        #n9{grid-area: n9;}
+        #n0{grid-area: n0;}
+        #vs{
+            grid-area: visor;
+            height: 85px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="calculadora">
+        <div class="operadores" id="soma">+</div>
+        <div class="operadores" id="subtracao">-</div>
+        <div class="operadores" id="multiplicacao">*</div>
+        <div class="operadores" id="divisao">/</div>
+        <div class="operadores" id="virgula">.</div>
+        <div class="operadores" id="igual">=</div>
+        <div class="operadores" id="limpar">C</div>
+        <div class="numeros" id="n1">1</div>
+        <div class="numeros" id="n2">2</div>
+        <div class="numeros" id="n3">3</div>
+        <div class="numeros" id="n4">4</div>
+        <div class="numeros" id="n5">5</div>
+        <div class="numeros" id="n6">6</div>
+        <div class="numeros" id="n7">7</div>
+        <div class="numeros" id="n8">8</div>
+        <div class="numeros" id="n9">9</div>
+        <div class="numeros" id="n0">0</div>
+        <div class="visor" id="vs"></div>
+    </div>
+</body>
+</html>
