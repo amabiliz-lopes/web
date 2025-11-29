@@ -87,37 +87,67 @@
         #n9{grid-area: n9;}
         #n0{grid-area: n0;}
         #vs{
-            grid-area: visor;
             height: 85px;
             border: 1px solid #999999;
+            font-size: 25px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #494848;
+            grid-area: visor;
+            display: grid;
+            align-items: center;
+            justify-items: end;
         }
 
     </style>
 </head>
 <body>
     <div class="calculadora">
-        <div class="operadores" id="soma">+</div>
-        <div class="operadores" id="subtracao">-</div>
-        <div class="operadores" id="multiplicacao">x</div>
-        <div class="operadores" id="divisao">÷</div>
-        <div class="operadores" id="virgula">.</div>
-        <div class="operadores" id="igual">=</div>
-        <div class="operadores" id="limpar">C</div>
-        <div class="numeros" id="n1">1</div>
-        <div class="numeros" id="n2">2</div>
-        <div class="numeros" id="n3">3</div>
-        <div class="numeros" id="n4">4</div>
-        <div class="numeros" id="n5">5</div>
-        <div class="numeros" id="n6">6</div>
-        <div class="numeros" id="n7">7</div>
-        <div class="numeros" id="n8">8</div>
-        <div class="numeros" id="n9">9</div>
-        <div class="numeros" id="n0">0</div>
+        <div class="operadores" id="soma" onclick="expressao('+')">+</div>
+        <div class="operadores" id="subtracao" onclick="expressao('-')">-</div>
+        <div class="operadores" id="multiplicacao" onclick="expressao('*')">x</div>
+        <div class="operadores" id="divisao" onclick="expressao('/')">÷</div>
+        <div class="operadores" id="virgula" onclick="expressao('.')">.</div>
+        <div class="operadores" id="igual" onclick="resultado()">=</div>
+        <div class="operadores" id="limpar" onclick="limpar()">C</div>
+        <div class="numeros" id="n1" onclick="expressao('1')">1</div>
+        <div class="numeros" id="n2" onclick="expressao('2')">2</div>
+        <div class="numeros" id="n3" onclick="expressao('3')">3</div>
+        <div class="numeros" id="n4" onclick="expressao('4')">4</div>
+        <div class="numeros" id="n5" onclick="expressao('5')">5</div>
+        <div class="numeros" id="n6" onclick="expressao('6')">6</div>
+        <div class="numeros" id="n7" onclick="expressao('7')">7</div>
+        <div class="numeros" id="n8" onclick="expressao('8')">8</div>
+        <div class="numeros" id="n9" onclick="expressao('9')">9</div>
+        <div class="numeros" id="n0" onclick="expressao('0')">0</div>
         <div class="visor" id="vs"></div>
     </div>
 
     <script>
-        
+        let visor = document.getElementById("vs");
+        let calcular = "";
+        let result;
+
+        function expressao(valor){
+            calcular = calcular +valor;
+            if(calcular == '+' || calcular == '-' ||calcular == '/' || calcular == '*' || calcular == '.'
+            ){
+                calcular = "";
+                alert("Operação inválida, tente novamente!")
+            }
+            visor.innerHTML = calcular;
+        }
+
+        function limpar(){
+            calcular = "";
+            visor.innerHTML = calcular;
+        }
+
+        function resultado(){
+            result = eval(calcular);
+            visor.innerHTML = result;
+            calcular = result;
+        }
+
     </script>
 </body>
 </html>
