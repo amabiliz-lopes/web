@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronômetro</title>
+    <style>
+        body{
+            background-color: #7c7676;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+
+        }
+        #cronometro{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;  
+            height: 100vh;
+            gap: 20px
+        }
+        #tempo{
+            font-family: Arial, Helvetica, sans-serif;
+            size: 50px;
+            color: #b1afaf;
+            border-right: 1px solid #b1afaf;
+            display: flex;
+            justify-content: end;
+            gap: 20px;
+        }
+        #limpar{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #b1afaf;
+            font-size: 12px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: #7c7676;
+            border-radius: 5px;
+            height: 25px;
+            width: 70px;
+        }
+        #historico{
+            display: flex;
+            background-color: #b1afaf;
+            border-top-right-radius: 20px; 
+            border-top-left-radius: 20px;
+            height: 105vmax;
+            width: 50vh;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 50px;
+        }
+        #titulo{
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: black;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="cronometro">
+        <div id="tempo">00:00:00</div>
+        <div id="limpar" onclick="inicioFim(botao)">☑ Zerar</div>
+    </div>
+    <div id="historico">
+        <div id="titulo">Paradas</div>
+    </div>
+    <script>
+        let dataInicio;
+        let cronometro = document.getElementById("tempo");
+        let botao = 0;
+
+        let seg = 0;
+        let min = 0;
+        let hora = 0;
+
+        function cronometrar(){
+            seg ++;
+            if(seg >= 60){
+                seg = 0;
+                min++;
+            }
+            if(min >= 60){
+                min = 0;
+                hora++;
+            }
+            cronometro.innerHTML = '${hora}:${min}:${seg}';
+        }
+
+        function inicioFim(botao){
+            if(botao == 0){
+                botao = 1;
+                dataInicio = new Date();
+            } else if(botao == 1){
+                botao = 0;
+            }
+
+            while(botao == 1){
+            setInterval(cronometrar, 1000);
+        }
+        }
+
+    </script>
+</body>
+</html>
