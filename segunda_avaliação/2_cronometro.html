@@ -9,20 +9,22 @@
             background-color: #7c7676;
             height: 100vh;
             display: grid;
-            grid-template-columns: 3fr 2fr;
-
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: 70vh 1fr;
         }
         #cronometro{
+            grid-column: 1/2;
+            grid-row: 1/2;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;  
-            height: 100vh;
+            height: 100%;
             gap: 20px
         }
         #tempo{
             font-family: Arial, Helvetica, sans-serif;
-            size: 50px;
+            font-size: 80px;
             color: #b1afaf;
             border-right: 1px solid #b1afaf;
             display: flex;
@@ -34,29 +36,45 @@
             justify-content: center;
             align-items: center;
             background-color: #b1afaf;
-            font-size: 12px;
+            font-size: 18px;
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             color: #7c7676;
             border-radius: 5px;
-            height: 25px;
-            width: 70px;
+            height: 40px;
+            width: 120px;
         }
         #historico{
+            grid-column: 2/3;
+            grid-row: 1/2;
             display: flex;
             background-color: #b1afaf;
             border-top-right-radius: 20px; 
             border-top-left-radius: 20px;
-            height: 105vmax;
-            width: 50vh;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
             padding-top: 50px;
         }
         #titulo{
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             color: black;
-            font-size: 16px;
+            font-size: 24px;
+        }
+        .listaImpar{
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 14px;
+            background-color: #a1ddf9;
+        }
+        .listaPar{
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 14px;
+        }
+        #comandos{
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            grid-row: 2 / 3; 
+            grid-column: 1 / -1; 
+            padding: 20px;
+            border: 5px groove #333;
+            background-color: #d3d3d3;
         }
     </style>
 </head>
@@ -69,6 +87,13 @@
     <div id="historico">
         <div id="titulo">Paradas</div>
         <ol id="pausasLista"></ol>
+    </div>
+    <div id="comandos">
+        <h5 style="font-size: 20px;">Relação de comandos pelo teclado:</h5>
+        <u>
+            <li style="font-size: 16px;">I = Iniciar o cronômetro</li>
+            <li style="font-size: 16px;">P = Pausar o cronômetro</li>
+        </u>
     </div>
     <script>
         let dataInicio;
@@ -122,11 +147,25 @@
             pausasListaElemento.innerHTML="";
             pausas.forEach((pausasTempo, indice) => {
                 let listaItem = document.createElement('li');
+
+                if((indice+1) % 2 !== 0){
+                    listaItem.classList.add('listaImpar');
+                } else{
+                    listaItem.classList.add('listaPar');
+                }
+
                 listaItem.innerHTML = pausasTempo;
                 pausasListaElemento.appendChild(listaItem);
             });
         }
 
+        document.addEventListener('keydown', (tecla)=>{
+            switch(tecla.key.toLocaleLowerCase()){
+                case 'i': inicioFim(1); break;
+                case 'p': inicioFim(0); break;
+                default: alert("Tecla de comando inválida, tente novamente!");break;
+            }
+        })
     </script>
 </body>
 </html>
