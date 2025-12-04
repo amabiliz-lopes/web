@@ -29,7 +29,7 @@
             justify-content: end;
             gap: 20px;
         }
-        #limpar{
+        .botoes{
             display: flex;
             justify-content: center;
             align-items: center;
@@ -63,19 +63,26 @@
 <body>
     <div id="cronometro">
         <div id="tempo">00:00:00</div>
-        <div id="limpar" onclick="inicioFim(botao)">☑ Zerar</div>
+        <div class="botoes" id="iniciar" onclick="inicioFim(1)">▷ Iniciar</div>
+        <div class="botoes" id="limpar" onclick="inicioFim(0)">☑ Parar</div>
     </div>
     <div id="historico">
         <div id="titulo">Paradas</div>
+        <ol id="pausasLista"></ol>
     </div>
     <script>
         let dataInicio;
-        let cronometro = document.getElementById("tempo");
+        let cronometroElemento = document.getElementById("tempo");
+        let intervalo;
         let botao = 0;
+        let tempo = "00:00:00";
 
         let seg = 0;
         let min = 0;
         let hora = 0;
+
+        let pausas = [];
+        let pausasListaElemento = document.getElementById("pausasLista");
 
         function cronometrar(){
             seg ++;
@@ -87,20 +94,37 @@
                 min = 0;
                 hora++;
             }
-            cronometro.innerHTML = '${hora}:${min}:${seg}';
+
+            const hFormatada = hora < 10 ? '0' + hora : hora;
+            const mFormatada = min < 10 ? '0' + min : min;
+            const sFormatada = seg < 10 ? '0' + seg : seg;
+
+            tempo = `${hFormatada}:${mFormatada}:${sFormatada}`;
+            cronometroElemento.innerHTML = tempo;
         }
 
         function inicioFim(botao){
-            if(botao == 0){
-                botao = 1;
+            if(botao == 1){
                 dataInicio = new Date();
-            } else if(botao == 1){
-                botao = 0;
+                intervalo = setInterval(cronometrar, 1000);
+            } else if(botao == 0){
+                clearInterval(intervalo);
+                pausas.push(tempo);
+                listaPausas();
+                seg = 0;
+                min = 0;
+                hora = 0;
+                cronometroElemento.innerHTML= "00:00:00";
             }
-
-            while(botao == 1){
-            setInterval(cronometrar, 1000);
         }
+
+        function listaPausas(){
+            pausasListaElemento.innerHTML="";
+            pausas.forEach((pausasTempo, indice) => {
+                let listaItem = document.createElement('li');
+                listaItem.innerHTML = pausasTempo;
+                pausasListaElemento.appendChild(listaItem);
+            });
         }
 
     </script>
