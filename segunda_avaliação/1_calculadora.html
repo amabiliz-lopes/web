@@ -6,6 +6,7 @@
     <title>Calculadora Simples</title>
     <style>
         body{
+            /*Centraliza os itens do corpo da página*/
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -17,7 +18,7 @@
             width: 400px;
             display: grid;
 
-            grid-template-areas: 
+            grid-template-areas: /*Define a posição dos elementos da calculadora*/
             "visor visor visor visor"
             "soma subtracao multiplicacao divisao"
             "n7 n8 n9 igual"
@@ -26,12 +27,13 @@
             "n0 virgula limpar igual"
             ;
 
+            /*Define o espaçamento e centraliza o conteúdo*/
             gap: 8px 5px;
             justify-content: center;
             align-content: center;
         }
 
-        .operadores{
+        .operadores{/*Define o estilo e centraliza os operadores*/
             border: 1px solid #999999;
             height: 85px;
             width: 85px;
@@ -39,12 +41,13 @@
             font-size: 25px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #494848;
+
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .numeros{
+        .numeros{/*Define o estilo e centraliza os números*/
             border: 1px solid #999999;
             height: 85px;
             width: 85px;
@@ -57,6 +60,7 @@
             align-items: center;
         }
 
+        /*Define a área dos itens no grid*/
         #soma{grid-area: soma;}
         #subtracao{grid-area: subtracao;}
         #multiplicacao{grid-area: multiplicacao;}
@@ -86,7 +90,7 @@
         #n8{grid-area: n8;}
         #n9{grid-area: n9;}
         #n0{grid-area: n0;}
-        #vs{
+        #vs{ /*Define o visor da calculadora*/
             height: 85px;
             border: 1px solid #999999;
             font-size: 25px;
@@ -127,25 +131,27 @@
         let calcular = "";
         let result;
 
-        function expressao(valor){
+        function expressao(valor){ // Função que é chamada ao clicar em algum botão da calculadora
             calcular = calcular +valor;
+
+            //Verificar se o usuário digitou algum operador como primeiro digito resultando em erro
             if(calcular == '/' || calcular == '*' || calcular == '.'
             ){
                 calcular = "";
                 alert("Operação inválida, tente novamente!")
             }
-            visor.innerHTML = calcular;
+            visor.innerHTML = calcular; //Atualiza o visor
         }
 
-        function limpar(){
+        function limpar(){ //Função chamada quando o botão C é clicado
             calcular = "";
             visor.innerHTML = calcular;
         }
 
-        function resultado(){
-            result = eval(calcular);
+        function resultado(){ //Função chamada quando o botão de igual é clicado
+            result = eval(calcular); //Utiliza a função eval que calcula String para realizar o calculo
             visor.innerHTML = result;
-            calcular = result;
+            calcular = result; // Define a variável calcular com o valor do resultado para continuar operando com o mesmo valor obtido
         }
 
     </script>
