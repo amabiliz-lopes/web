@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 3 - Bandeiras</title>
+    <style>
+        .franca{
+            border: 1px solid black;
+            width: 200px;
+            height: 150px;
+            display: grid;
+            grid-template-areas: 
+            "francab francaw francar"
+            "francab francaw francar"
+            "francab francaw francar"
+            ;
+        }
+        #franca1{
+             grid-area: francab;
+             background-color: blue;
+        }
+        #franca2{
+             grid-area: francaw;
+             background-color: white;
+        }
+        #franca3{
+             grid-area: francar;
+             background-color: red;
+        }
+        .alemanha{
+            border: 1px solid black;
+            width: 200px;
+            height: 150px;
+            display: grid;
+            grid-template-areas: 
+            "ab"
+            "ar"
+            "ay"
+            ;
+        }
+        #alemanha1{
+            grid-area: ab;
+            background-color: black;
+        }
+        #alemanha2{
+            grid-area: ar;
+            background-color: red;
+        }
+        #alemanha3{
+            grid-area: ay;
+            background-color: yellow;
+        }
+
+        .japao{
+            border: 1px solid black;
+            width: 200px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #japao1{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: red;
+        }
+
+        .japao{
+            border: 1px solid black;
+            width: 200px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .holanda{
+            border: 1px solid black;
+            width: 200px;
+            height: 150px;
+            display: grid;
+            grid-template-areas: 
+            "hr"
+            "hw"
+            "hb"
+            ;
+        }
+
+        #ho1{
+            grid-area: hw;
+            background-color: white;
+        }
+        #ho2{
+            grid-area: hr;
+            background-color: red;
+        }
+        #ho3{
+            grid-area: hb;
+            background-color: blue;
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="franca">
+        <div id="franca1"></div>
+        <div id="franca2"></div>
+        <div id="franca3"></div>
+    </div><br>
+
+    <div class="alemanha">
+        <div id="alemanha1"></div>
+        <div id="alemanha2"></div>
+        <div id="alemanha3"></div>
+    </div><br>
+
+    <div class="japao">
+        <div id="japao1"></div>
+    </div><br>
+
+    <div class="holanda">
+        <div id="ho1"></div>
+        <div id="ho2"></div>
+        <div id="ho3"></div>
+    </div><br>
+
+</body>
+</html>
