@@ -6,6 +6,7 @@
     <title>Cronômetro</title>
     <style>
         body{
+            /*No corpo da página adiciona estilo e define por frações o layout*/
             background-color: #7c7676;
             height: 100vh;
             display: grid;
@@ -13,16 +14,17 @@
             grid-template-rows: 70vh 1fr;
         }
         #cronometro{
-            grid-column: 1/2;
-            grid-row: 1/2;
-            display: flex;
+            grid-column: 1/2; /*Informa a coluna no layout*/
+            grid-row: 1/2;/*Informa a linha no layout*/
+
+            display: flex; /*Centraliza o conteúdo*/
             flex-direction: column;
             justify-content: center;
             align-items: center;  
             height: 100%;
             gap: 20px
         }
-        #tempo{
+        #tempo{ /*Define o estilo do temporidador*/
             font-family: Arial, Helvetica, sans-serif;
             font-size: 80px;
             color: #b1afaf;
@@ -31,7 +33,7 @@
             justify-content: end;
             gap: 20px;
         }
-        .botoes{
+        .botoes{/*Define o estilo e centraliza o conteúdo dos botões*/
             display: flex;
             justify-content: center;
             align-items: center;
@@ -44,8 +46,8 @@
             width: 120px;
         }
         #historico{
-            grid-column: 2/3;
-            grid-row: 1/2;
+            grid-column: 2/3; /*Informa coluna no layout*/
+            grid-row: 1/2; /*Informa linha no layout*/
             display: flex;
             background-color: #b1afaf;
             border-top-right-radius: 20px; 
@@ -54,24 +56,24 @@
             align-items: center;
             padding-top: 50px;
         }
-        #titulo{
+        #titulo{ /*Define estilo*/
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             color: black;
             font-size: 24px;
         }
-        .listaImpar{
+        .listaImpar{/*Define estilo*/
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             font-size: 14px;
             background-color: #a1ddf9;
         }
-        .listaPar{
+        .listaPar{/*Define estilo*/
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             font-size: 14px;
         }
         #comandos{
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            grid-row: 2 / 3; 
-            grid-column: 1 / -1; 
+            grid-row: 2 / 3; /*Define linha*/
+            grid-column: 1 / -1; /*Define coluna*/
             padding: 20px;
             border: 5px groove #333;
             background-color: #d3d3d3;
@@ -106,10 +108,10 @@
         let min = 0;
         let hora = 0;
 
-        let pausas = [];
+        let pausas = []; //Armazena o histórico
         let pausasListaElemento = document.getElementById("pausasLista");
 
-        function cronometrar(){
+        function cronometrar(){ //Função chamada para realizar a contagem do tempo
             seg ++;
             if(seg >= 60){
                 seg = 0;
@@ -120,22 +122,23 @@
                 hora++;
             }
 
+            //Formata o número do cronometro 
             const hFormatada = hora < 10 ? '0' + hora : hora;
             const mFormatada = min < 10 ? '0' + min : min;
             const sFormatada = seg < 10 ? '0' + seg : seg;
 
             tempo = `${hFormatada}:${mFormatada}:${sFormatada}`;
-            cronometroElemento.innerHTML = tempo;
+            cronometroElemento.innerHTML = tempo; //Atualiza o display
         }
 
         function inicioFim(botao){
             if(botao == 1){
-                dataInicio = new Date();
-                intervalo = setInterval(cronometrar, 1000);
+                dataInicio = new Date();//Registra o inicio
+                intervalo = setInterval(cronometrar, 1000); //Usando o setInterval, chama a função cronometrar a cada 1 segundo
             } else if(botao == 0){
-                clearInterval(intervalo);
-                pausas.push(tempo);
-                listaPausas();
+                clearInterval(intervalo);//Para a função setInterval
+                pausas.push(tempo); //Adiciona o tempo no histórico
+                listaPausas();//Chama a função de atualizar a lista
                 seg = 0;
                 min = 0;
                 hora = 0;
@@ -143,11 +146,14 @@
             }
         }
 
-        function listaPausas(){
-            pausasListaElemento.innerHTML="";
+        function listaPausas(){ //Função chamada para atualizar a lista de pausas
+            pausasListaElemento.innerHTML=""; //Limpa o conteúdo da lista antes de iniciar
+
+            //Verifica cada elemento do array e cria um elemento HTML para ele
             pausas.forEach((pausasTempo, indice) => {
                 let listaItem = document.createElement('li');
 
+                //Lógica que verifica o número do item para alterar a cor
                 if((indice+1) % 2 !== 0){
                     listaItem.classList.add('listaImpar');
                 } else{
@@ -159,6 +165,7 @@
             });
         }
 
+        //Adiciona evento para quando teclas específicas forem pressionadas
         document.addEventListener('keydown', (tecla)=>{
             switch(tecla.key.toLocaleLowerCase()){
                 case 'i': inicioFim(1); break;
