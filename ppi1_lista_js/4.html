@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteio de Números Simples</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .card { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 0 10px -5px rgba(0, 0, 0, 0.04); }
+        .result-box { min-height: 4rem; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 700; color: #374151; }
+        .drawn-number-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0.75rem; border-radius: 0.5rem; background-color: #fff; border: 1px solid #e5e7eb; margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen flex items-center justify-center">
+
+    <div class="w-full max-w-lg card bg-white p-6 md:p-10 rounded-xl">
+        
+        <h1 class="text-3xl font-extrabold text-indigo-700 mb-6 text-center">Sorteio de Números</h1>
+
+        <div class="grid grid-cols-2 gap-4 mb-6">
+            <div>
+                <label for="min-input" class="block text-sm font-medium text-gray-700 mb-1">Valor Mínimo</label>
+                <input type="number" id="min-input" value="1" min="1" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg">
+            </div>
+            <div>
+                <label for="max-input" class="block text-sm font-medium text-gray-700 mb-1">Valor Máximo</label>
+                <input type="number" id="max-input" value="100" min="1" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg">
+            </div>
+        </div>
+
+        <button id="draw-button" onclick="sortear()" class="w-full bg-indigo-600 text-white p-4 rounded-xl font-semibold text-xl hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition-all">
+            Sortear
+        </button>
+
+        <div class="mt-8 mb-6 p-4 bg-indigo-50 rounded-xl border-2 border-indigo-200">
+            <p class="text-sm font-medium text-indigo-700 text-center mb-2">Último Número Sorteado</p>
+            <div id="resultado" class="result-box">
+                Aguardando sorteio...
+            </div>
+        </div>
+        
+        <div class="mt-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Números Sorteados (Histórico Público)</h2>
+            <div id="drawn-list-container" class="space-y-2 max-h-64 overflow-y-auto pr-2">
+                <p id="loading-message" class="text-gray-500 text-center italic">Carregando histórico...</p>
+            </div>
+        </div>
+        
+        <p id="user-info" class="text-xs text-gray-400 mt-6 text-center"></p>
+
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        setLogLevel('debug'); 
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let app;
+        let db;
+        let auth;
+        let userId = null;
+        let isAuthReady = false;
+
+        window.drawnNumbersMap = {};
+        let drawnListDocRef;
+        const COLLECTION_NAME = "draw_history";
+        const DOC_ID = "main_list";
+
+        const getSortedDrawnList = () => {
+            return Object.values(window.drawnNumbersMap).sort((a, b) => b.count - a.count || b.number - a.number);
+        };
+
+        const generateRandomInt = (min, max) => {
+            min = Math.ceil(parseInt(min, 10));
+            max = Math.floor(parseInt(max, 10));
+            if (min > max) { [min, max] = [max, min]; }
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        };
+        
+        const renderDrawnList = () => {
+            const container = document.getElementById('drawn-list-container');
+            const sortedList = getSortedDrawnList();
+            
+            if (sortedList.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center italic">Nenhum número sorteado ainda. Comece a sortear!</p>';
+                return;
+            }
+
+            container.innerHTML = sortedList.map(item => `
+                <div class="drawn-number-item">
+                    <span class="text-xl font-mono text-gray-800">${item.number}</span>
+                    <span class="text-sm font-semibold text-indigo-600">
+                        ${item.count} sorteio${item.count > 1 ? 's' : ''}
+                    </span>
+                </div>
+            `).join('');
+        };
+
+        window.sortear = async () => {
+            const minInput = document.getElementById('min-input');
+            const maxInput = document.getElementById('max-input');
+            const resultElement = document.getElementById('resultado');
+            const drawButton = document.getElementById('draw-button');
+
+            if (!isAuthReady) {
+                resultElement.textContent = "Aguardando autenticação...";
+                return;
+            }
+
+            const min = parseInt(minInput.value, 10);
+            const max = parseInt(maxInput.value, 10);
+
+            if (isNaN(min) || isNaN(max) || min < 1 || max < 1 || min > max) {
+                resultElement.textContent = "Erro: Intervalo inválido.";
+                return;
+            }
+
+            drawButton.disabled = true;
+            drawButton.textContent = "Sorteando...";
+
+            const drawnNumber = generateRandomInt(min, max);
+            resultElement.textContent = drawnNumber;
+
+            const key = String(drawnNumber);
+            
+            if (window.drawnNumbersMap[key]) {
+                window.drawnNumbersMap[key].count += 1;
+            } else {
+                window.drawnNumbersMap[key] = { number: drawnNumber, count: 1 };
+            }
+
+            renderDrawnList();
+
+            try {
+                const dataToSave = {
+                    numbers: window.drawnNumbersMap,
+                    lastDrawn: drawnNumber,
+                    timestamp: new Date()
+                };
+
+                await setDoc(drawnListDocRef, dataToSave, { merge: true });
+                
+            } catch (error) {
+                console.error("Erro ao salvar no Firestore:", error);
+                resultElement.textContent = `Erro (Firestore): ${drawnNumber}`;
+            } finally {
+                drawButton.disabled = false;
+                drawButton.textContent = "Sortear";
+            }
+        };
+
+
+        const initFirebase = async () => {
+            try {
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                
+                onAuthStateChanged(auth, (user) => {
+                    isAuthReady = true;
+                    if (user) {
+                        userId = user.uid;
+                        document.getElementById('user-info').textContent = `ID do Usuário: ${userId}`;
+                        setupFirestoreListener();
+                    } else {
+                        userId = null;
+                        document.getElementById('user-info').textContent = `ID do Usuário (Anônimo): Não Autenticado`;
+                    }
+                });
+
+            } catch (error) {
+                console.error("Erro na inicialização ou autenticação do Firebase:", error);
+                document.getElementById('resultado').textContent = "Erro fatal na inicialização do Firebase.";
+            }
+        };
+
+        const setupFirestoreListener = () => {
+            if (!isAuthReady || !userId) return;
+
+            const publicCollectionPath = `artifacts/${appId}/public/data/${COLLECTION_NAME}`;
+            drawnListDocRef = doc(db, publicCollectionPath, DOC_ID);
+
+            onSnapshot(drawnListDocRef, (docSnap) => {
+                const loadingMessage = document.getElementById('loading-message');
+                if(loadingMessage) loadingMessage.style.display = 'none';
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    
+                    if (data.numbers && typeof data.numbers === 'object') {
+                        window.drawnNumbersMap = data.numbers;
+                        renderDrawnList();
+                    }
+
+                    if (data.lastDrawn !== undefined) {
+                        document.getElementById('resultado').textContent = data.lastDrawn;
+                    }
+
+                } else {
+                    window.drawnNumbersMap = {};
+                    renderDrawnList();
+                    setDoc(drawnListDocRef, { numbers: {}, lastDrawn: null, timestamp: new Date() }, { merge: true }).catch(console.error);
+                }
+            }, (error) => {
+                console.error("Erro no listener do Firestore:", error);
+                document.getElementById('drawn-list-container').innerHTML = '<p class="text-red-500 text-center italic">Erro ao carregar dados.</p>';
+            });
+        };
+
+        initFirebase();
+
+    </script>
+
+</body>
+</html>

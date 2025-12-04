@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de Números Primos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .card { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 0 10px -5px rgba(0, 0, 0, 0.04); }
+        .result-box {
+            padding: 1rem;
+            min-height: 5rem;
+            background-color: #f0f4ff;
+            border: 2px solid #c7d2fe;
+            border-radius: 0.75rem;
+            color: #1f2937;
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+        }
+        .prime-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .prime-number {
+            padding: 0.25rem 0.6rem;
+            background-color: #6366f1;
+            color: white;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen flex items-center justify-center">
+
+    <div class="w-full max-w-lg card bg-white p-6 md:p-10 rounded-xl">
+        
+        <h1 class="text-3xl font-extrabold text-indigo-700 mb-6 text-center">Encontrar Números Primos</h1>
+
+        <div class="grid grid-cols-2 gap-4 mb-6">
+            <div>
+                <label for="inicio" class="block text-sm font-medium text-gray-700 mb-1">Número Inicial</label>
+                <input type="number" id="inicio" value="2" min="1" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg">
+            </div>
+            <div>
+                <label for="fim" class="block text-sm font-medium text-gray-700 mb-1">Número Final</label>
+                <input type="number" id="fim" value="50" min="1" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-lg">
+            </div>
+        </div>
+
+        <button id="check-button" onclick="verificarPrimos()" class="w-full bg-green-600 text-white p-4 rounded-xl font-semibold text-xl hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 transition-all">
+            Verificar
+        </button>
+
+        <div class="mt-8">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Primos Encontrados</h2>
+            <div id="resultadoPrimos" class="result-box">
+                Insira o intervalo e clique em 'Verificar'.
+            </div>
+        </div>
+        
+    </div>
+
+    <script type="module">
+        
+        const isPrime = (num) => {
+            if (num <= 1) return false;
+            if (num <= 3) return true;
+            if (num % 2 === 0 || num % 3 === 0) return false;
+            let i = 5;
+            while (i * i <= num) {
+                if (num % i === 0 || num % (i + 2) === 0) return false;
+                i += 6;
+            }
+            return true;
+        };
+
+        window.verificarPrimos = () => {
+            const inicioInput = document.getElementById('inicio');
+            const fimInput = document.getElementById('fim');
+            const resultadoDiv = document.getElementById('resultadoPrimos');
+
+            const inicio = parseInt(inicioInput.value, 10);
+            const fim = parseInt(fimInput.value, 10);
+
+            if (isNaN(inicio) || isNaN(fim) || inicio < 1 || fim < 1) {
+                resultadoDiv.innerHTML = '<p class="text-red-600">Erro: Digite números inteiros positivos válidos.</p>';
+                return;
+            }
+
+            if (inicio > fim) {
+                resultadoDiv.innerHTML = '<p class="text-red-600">Erro: O número inicial deve ser menor ou igual ao número final.</p>';
+                return;
+            }
+
+            const primosEncontrados = [];
+            
+            for (let num = inicio; num <= fim; num++) {
+                if (isPrime(num)) {
+                    primosEncontrados.push(num);
+                }
+            }
+            
+            if (primosEncontrados.length === 0) {
+                resultadoDiv.innerHTML = `<p>Nenhum número primo encontrado no intervalo de ${inicio} a ${fim}.</p>`;
+            } else {
+                const listaPrimosHTML = primosEncontrados.map(p => 
+                    `<span class="prime-number">${p}</span>`
+                ).join('');
+                
+                resultadoDiv.innerHTML = `
+                    <p class="mb-3 font-semibold">Primos encontrados (${primosEncontrados.length}):</p>
+                    <div class="prime-list">${listaPrimosHTML}</div>
+                `;
+            }
+        };
+
+    </script>
+
+</body>
+</html>
