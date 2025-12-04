@@ -5,25 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Busca Filmes Omdb</title>
     <Style>
-        body{
+        body{ /*Define estilo ao corpo da página*/
             background-color: #121212;
             color: #f0f0f0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        #busca{
+        #busca{ /*Define estilo para a div com os elementos de busca*/
             background-color: #1a1e27;
             padding: 15px;
             text-align: center;
             margin-bottom: 20px;
         }
-        #filmes{
+        #filmes{ /*Define estilo para onde o resultado da pesquisa será exibido*/
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
             padding: 20px;
         }
-        .filme{
+        .filme{ /*Define estilo para a div de cada filme buscado*/
             background-color: #1a1e27;
             border: 8px solid black;
             padding: 15px;
@@ -34,11 +34,11 @@
             flex-direction: column;
             align-items: flex-start;
         }
-        .filmeTitulo, .filmeAno, .filmeType {
+        .filmeTitulo, .filmeAno, .filmeType { /*Define estilo para o título, ano e tipo do filme/série*/
             width: 100%; 
             text-align: left; 
         }
-        .imgPoster{
+        .imgPoster{ /*Define estilo para a imagem dos filmes*/
             align-self: center;
             margin-bottom: 10px;
             max-width: 100%;
@@ -61,16 +61,18 @@
         let divresultado=document.querySelector("#filmes");
         let buscar=document.querySelector("#buscar");
         
-
+        //Adiciona um evento para o botão de busca, o qual faz uma requisição para a API onde o título do filme é buscado por meio da URL de busca 
         buscar.addEventListener("click", ()=>{
-            fetch("https://www.omdbapi.com/?s="+inputfilmes.value+"&apikey=f77bfada").then((response)=>{
+            fetch("https://www.omdbapi.com/?s="+inputfilmes.value+"&apikey=f77bfada").then((response)=>{ //Espera a resposta e transforma em JSON
                 return response.json();
-            }).then((data)=>{
+            }).then((data)=>{//Recebe os dados processados
                 console.log(data);
 
                 divresultado.innerHTML="";
 
+                //Verifica se o retorno foi válido
                 if(data.Response == "True"){
+                //Verifica os resultados criando uma div para cada resultado obtido
                 data.Search.forEach((filme)=>{
                 let divfilme=`<div class="filme">
                     <img src="${filme.Poster}" alt="${filme.Title}" class="imgPoster">
@@ -79,9 +81,9 @@
                     <p class="filmeType">${filme.Type}</p>
                     </div>`
 
-                divresultado.innerHTML+=divfilme;
+                divresultado.innerHTML+=divfilme; //Adiciona os resultados na tela
                 })
-            } else{
+            } else{ //Em caso da busca não retornar nada, apresenta um erro
                 divresultado.innerHTML=`<p>Nenhum resultado encontrado para essa pesquisa, tente novamente!</p>`;
             }
             })
